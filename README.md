@@ -19,6 +19,9 @@ npm install getaddress-location-native
   <label>Postcode</label>
   <div><input id="postcode" type="text"></div>
 
+   <label>Outcode</label>
+  <div><input id="outcode" type="text"></div>
+
   <label>Latitude</label>
   <div><input id="latitude" type="text"></div>
 
