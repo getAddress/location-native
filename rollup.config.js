@@ -35,7 +35,7 @@ export default [
         input: "dist/getaddress-location-native.mjs",
         output: 
             {
-                file:"dist/getaddress-autocomplete-native-" + version + ".min.js",
+                file:"dist/getaddress-location-native-" + version + ".min.js",
                 format:"iife",
                 name:'getAddress'
             },
