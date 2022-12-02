@@ -1,6 +1,6 @@
 {
   "name": "getaddress-location-native",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "GetAddress.io - Native Location Plug-In",
   "main": "./dist/getaddress-location-native.mjs",
   "type": "module",

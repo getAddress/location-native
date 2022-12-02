@@ -79,20 +79,20 @@ getAddress.location(
 ```
 ## Events
 ```
-document.addEventListener("getaddress-location-suggestions", function(e){
+document.addEventListener("getaddress-location-native-suggestions", function(e){
     console.log(e.suggestions);
 })
 
-document.addEventListener("getaddress-location-suggestions-failed", function(e){
+document.addEventListener("getaddress-location-native-suggestions-failed", function(e){
     console.log(e.status);
     console.log(e.message);
 })
 
-document.addEventListener("getaddress-location-address-selected", function(e){
+document.addEventListener("getaddress-location-native-selected", function(e){
     console.log(e.location);
 })
 
-document.addEventListener("getaddress-location-find-selected-failed", function(e){
+document.addEventListener("getaddress-location-native-selected-failed", function(e){
     console.log(e.status);
     console.log(e.message);
 })
