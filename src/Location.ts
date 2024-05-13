@@ -7,9 +7,9 @@ import { SelectedEvent, SelectedFailedEvent, SuggestionsEvent, SuggestionsFailed
 export default class Location
 {
 
-    private filterTimer: ReturnType<typeof setTimeout>
-    private blurTimer: ReturnType<typeof setTimeout>
-    private list: HTMLDataListElement;
+    private filterTimer?: ReturnType<typeof setTimeout>
+    private blurTimer?: ReturnType<typeof setTimeout>
+    private list?: HTMLDataListElement = undefined;
    
 
     constructor(readonly input:HTMLInputElement,readonly client:Client,
@@ -25,7 +25,9 @@ export default class Location
 
     private destroyList()
     {
-        this.list.remove();
+        if(this.list){
+            this.list.remove();
+        }
     }
 
     
@@ -71,16 +73,17 @@ export default class Location
         if((e instanceof InputEvent == false) && e.target instanceof HTMLInputElement)
         {
             const input = e.target as HTMLInputElement;
-            
-            Array.from(this.list.querySelectorAll("option"))
-            .every(
-                (o:HTMLOptionElement) => {
-                    if(o.innerText === input.value){
-                        this.handleSuggestionSelected(o);
-                        return false;
-                    }
-                    return true;
-                });
+            if(this.list){
+                Array.from(this.list.querySelectorAll("option"))
+                .every(
+                    (o:HTMLOptionElement) => {
+                        if(o.innerText === input.value){
+                            this.handleSuggestionSelected(o);
+                            return false;
+                        }
+                        return true;
+                    });
+            }
         }
     }
 
@@ -128,21 +131,23 @@ export default class Location
             }
 
             const id = suggestion.dataset.id;
-            const locationResult = await this.client.getLocation(id);
-            if(locationResult.isSuccess){
-                let success = locationResult.toSuccess();
-                
-                this.bind(success.location);
-                SelectedEvent.dispatch(this.input,id,success.location);
-                
-                if(this.attributeValues.options.input_focus_on_select){
-                    this.input.focus();
-                    this.input.setSelectionRange(this.input.value.length,this.input.value.length+1);
+            if(id){
+                const locationResult = await this.client.getLocation(id);
+                if(locationResult.isSuccess){
+                    let success = locationResult.toSuccess();
+                    
+                    this.bind(success.location);
+                    SelectedEvent.dispatch(this.input,id,success.location);
+                    
+                    if(this.attributeValues.options.input_focus_on_select){
+                        this.input.focus();
+                        this.input.setSelectionRange(this.input.value.length,this.input.value.length+1);
+                    }
                 }
-            }
-            else{
-                const failed = locationResult.toFailed();
-                SelectedFailedEvent.dispatch(this.input,id,failed.status,failed.message);
+                else{
+                    const failed = locationResult.toFailed();
+                    SelectedFailedEvent.dispatch(this.input,id,failed.status,failed.message);
+                }
             }
         }
             
@@ -166,7 +171,7 @@ export default class Location
         }
     };
 
-    private setOutputfield = (fieldName:string, fieldValue:string) =>
+    private setOutputfield = (fieldName:string|undefined, fieldValue:string) =>
     {
             if(!fieldName){
                 return;
@@ -260,8 +265,9 @@ export default class Location
                         const li = this.getListItem(success.suggestions[i]);
                         newItems.push(li);
                     }
-
-                    this.list.replaceChildren(...newItems);
+                    if(this.list){
+                        this.list.replaceChildren(...newItems);
+                    }
 
                 }
                 else
@@ -279,7 +285,9 @@ export default class Location
 
     
     clearList = ()=>{
-        this.list.replaceChildren(...[]);
+        if(this.list){
+            this.list.replaceChildren(...[]);
+        }
     };
 
     getListItem = (suggestion:LocationSuggestion)=>

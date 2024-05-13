@@ -1,41 +1,36 @@
-import {version} from "./package.json";  
+import pkg from "./package.json" assert { type: 'json' };
 import { nodeResolve } from '@rollup/plugin-node-resolve';
-import ts from "rollup-plugin-ts";
-import {terser} from 'rollup-plugin-terser';
+import terser from '@rollup/plugin-terser';
 
 
 export default [
     
     {
-        input: "src/GetAddress.ts",
+        input: "lib/Index.js",
         output: {
-            file:"dist/getaddress-location-native.mjs",
+            file:"dist/getaddress-location-native-" + pkg.version + ".mjs",
             format:"es",
             sourcemap:  "inline"
         }
-        ,plugins:[nodeResolve(),ts()]
+        ,plugins:[nodeResolve()]
     },
     {
-        input: "src/GetAddress.ts",
+        input: "lib/Index.js",
         output: 
             {
-                file:"dist/getaddress-location-native-" + version + ".js",
+                file:"dist/getaddress-location-native-" + pkg.version + ".js",
                 format:"iife", 
                 name:'getAddress',
                 sourcemap:  "inline"
             }
         
-        ,plugins:[nodeResolve(),ts(
-            {tsconfig: {
-                declaration: false
-            }}
-        )]
+        ,plugins:[nodeResolve()]
     },
     {
-        input: "dist/getaddress-location-native.mjs",
+        input: "dist/getaddress-location-native-" + pkg.version + ".mjs",
         output: 
             {
-                file:"dist/getaddress-location-native-" + version + ".min.js",
+                file:"dist/getaddress-location-" + pkg.version + ".min.js",
                 format:"iife",
                 name:'getAddress'
             },

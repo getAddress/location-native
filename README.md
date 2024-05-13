@@ -8,7 +8,7 @@ npm install getaddress-location-native
 ```
 ### Or CDN
 ```
-<script src="https://cdn.getaddress.io/scripts/getaddress-location-native-1.0.0.min.js"></script>
+<script src="https://cdn.getaddress.io/scripts/getaddress-location-native-1.0.2.min.js"></script>
 ```
 
 ## Usage

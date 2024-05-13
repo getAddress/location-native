@@ -1,10 +1,10 @@
 {
   "name": "getaddress-location-native",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "GetAddress.io - Native Location Plug-In",
-  "main": "./dist/getaddress-location-native.mjs",
+  "main": "./lib/Index",
   "type": "module",
-  "types": "./dist/getaddress-location-native.d.ts",
+  "types": "./lib/Index",
   "homepage": "https://getaddress.io",
   "repository": {
     "type": "git",
@@ -14,21 +14,21 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "cleanDist": "rimraf dist/*",
     "rollup": "rollup -c",
-    "build": "npm-run-all cleanDist rollup"
+    "compile":"tsc -p .",
+    "build": "npm-run-all cleanDist compile rollup"
   },
-  "keywords": ["postcode","getAddress","address","plugin","UK","loaction","autocomplete","datalist"],
+  "keywords": ["postcode","getaddress","getaddress.io","address","plugin","UK","location","autocomplete","datalist"],
   "author": "getAddress()",
   "license": "MIT",
   "devDependencies": {
-    "@rollup/plugin-node-resolve": "^13.1.3",
+    "@rollup/plugin-node-resolve": "^15.2.3",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
-    "rollup": "^2.64.0",
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-ts": "^2.0.5",
-    "typescript": "4.5.4"
+    "rollup": "^4.13.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "typescript": "^5.4.3"
   },
   "dependencies": {
-    "getaddress-api": "^1.3.1"
+     "getaddress-api": "^1.4.3"
   }
 }
