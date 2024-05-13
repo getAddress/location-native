@@ -30,7 +30,7 @@ export default [
         input: "dist/getaddress-location-native-" + pkg.version + ".mjs",
         output: 
             {
-                file:"dist/getaddress-location-" + pkg.version + ".min.js",
+                file:"dist/getaddress-location-native" + pkg.version + ".min.js",
                 format:"iife",
                 name:'getAddress'
             },
